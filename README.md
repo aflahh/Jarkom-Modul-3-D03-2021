@@ -64,11 +64,58 @@ Ada beberapa kriteria yang ingin dibuat oleh Luffy dan Zoro, yaitu:
 1. Semua client yang ada HARUS menggunakan konfigurasi IP dari DHCP Server
 2. Client yang melalui Switch1 mendapatkan range IP dari [prefix IP].1.20 - [prefix IP].1.99 dan [prefix IP].1.150 - [prefix IP].1.169
 ### Penjelasan Jawaban
+1. Agar client menggunakan, isikan file `/etc/network/interfaces` di setiap client dengan
+```
+auto eth0
+iface eth0 inet dhcp
+```
+
+![image](https://user-images.githubusercontent.com/29938033/141613588-0f512e98-6613-4df0-bec2-fa1d56eebc8c.png)
+*Contoh di Loguetown*
+
+2. Buatlah subnet untuk server ini dan juga untuk switch 1 dengan membuka file `/etc/dhcp/dhcpd.conf` di Jipangu dan diisi:
+```
+subnet 192.193.2.0 netmask 255.255.255.0 {
+    option routers 192.193.2.4;
+}
+
+subnet 192.193.1.0 netmask 255.255.255.0 {
+    range 192.193.1.20 192.193.1.99;
+    range 192.193.1.150 192.193.1.169;
+    option routers 192.193.1.1;
+    option broadcast-address 192.193.1.255;
+}
+```
+
+![image](https://user-images.githubusercontent.com/29938033/141614147-f176fc37-dd8e-4f16-aef0-ff11dfe22264.png)
+
+File `/etc/default/isc-dhcp-server` tidak perlu diubah karena secara default, dhcp server akan melakukan listen pada eth0.
+
+Tambahkan subnet switch 1 ke iptable dengan command `route add -net 192.193.1.0 netmask 255.255.255.0 gw 192.193.2.4` dan kemudian restart dhcp dengan `service isc-dhcp-server restart`
+
+Maka ketika membuka client Loguetown:
+![image](https://user-images.githubusercontent.com/29938033/141613895-89783e45-4a1a-4124-b5e7-350772fda1f7.png)
+*Loguetown mendapatkan ip 192.193.1.22, sesuai dengan range yang ditentukan*
+
 
 ## No 4
 ### Soal
 3. Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.30 - [prefix IP].3.50
 ### Penjelasan Jawaban
+Buat subnet untuk switch 3 dengan membuka kembali file `/etc/dhcp/dhcpd.conf` di Jipangu dan diisi:
+```
+subnet 192.193.3.0 netmask 255.255.255.0 {
+    range 192.193.3.30 192.193.3.50;
+    option routers 192.193.3.1;
+    option broadcast-address 192.193.3.255;
+}
+```
+
+Tambahkan subnet switch 1 ke iptable dengan command `route add -net 192.193.1.0 netmask 255.255.255.0 gw 192.193.2.4` dan kemudian restart dhcp dengan `service isc-dhcp-server restart`
+
+Maka ketika client TottoLand direstart:
+![image](https://user-images.githubusercontent.com/29938033/141614165-2fe3a751-31fb-42b5-ad74-1124e9736d56.png)
+*TottoLand mendapatkan ip 192.193.3.30, sesuai dengan range yang ditentukan*
 
 ## No 5
 ### Soal
