@@ -295,7 +295,7 @@ Agar transaksi bisa lebih fokus berjalan, maka dilakukan redirect website agar m
 
 ![image](https://user-images.githubusercontent.com/74708771/141642438-7b93434c-abb0-4ce4-85c2-aedc2da7655c.png)
 
-4. Di Skypie, Lakukan ```apt-get update`` ```apt-get install apache2 php libapache2-mod-php7.0 -y``` ```apt-get install wget unzip -y```
+4. Di Skypie, Lakukan ```apt-get update``` ```apt-get install apache2 php libapache2-mod-php7.0 -y``` ```apt-get install wget unzip -y```
 5. Download file yang dibutuhkan dengan ```wget https://raw.githubusercontent.com/FeinardSlim/Praktikum-Modul-2-Jarkom/main/super.franky.zip``` lalu unzip ```unzip super.franky```
 
 ![image](https://user-images.githubusercontent.com/74708771/141642512-95b1a7e2-0808-4a81-b785-961a5b5f3bdb.png)
@@ -324,12 +324,43 @@ Agar transaksi bisa lebih fokus berjalan, maka dilakukan redirect website agar m
 
 ![image](https://user-images.githubusercontent.com/74708771/141642112-7b881870-0075-4133-9b7d-244714251d48.png)
 
+12. Testing (```lynx google.com``` dari loguetown)
+
+![image](https://user-images.githubusercontent.com/74708771/141643006-1ef25122-6b14-41dc-a760-f97ef0e96cd9.png)
+
 ## No 12
 ### Soal
 Saatnya berlayar! Luffy dan Zoro akhirnya memutuskan untuk berlayar untuk mencari harta karun di super.franky.yyy.com. Tugas pencarian dibagi menjadi dua misi, Luffy bertugas untuk mendapatkan gambar (.png, .jpg), sedangkan Zoro mendapatkan sisanya. Karena Luffy orangnya sangat teliti untuk mencari harta karun, ketika ia berhasil mendapatkan gambar, ia mendapatkan gambar dan melihatnya dengan kecepatan 10 kbps
 ### Penjelasan Jawaban
+1. Di Water7, Buat file acl-bandwidth.conf di folder /etc/squid dengan isi sebagai berikut (konfigurasi termasuk no 13): 
+
+![image](https://user-images.githubusercontent.com/74708771/141642750-3cfcc374-0c96-49fd-b5ed-36bac6f490cd.png)
+
+2. Di dalam file /etc/squid/squid.conf tambahkan konfigurasi berikut:
+
+![image](https://user-images.githubusercontent.com/74708771/141642698-4be55bd2-0cee-4734-984a-8f552b93729f.png)
+
+3. Restart service squid
+
+![image](https://user-images.githubusercontent.com/74708771/141642112-7b881870-0075-4133-9b7d-244714251d48.png)
+
+4. Testing (download file gambar dari server dengan proxy luffy dari loguetown)(kecepatan 10kb/s diubah menjadi sekitar 1,25 KB/s
+
+![image](https://user-images.githubusercontent.com/74708771/141642897-a231b91d-f529-4a86-9469-7d2eacdfb76e.png)
+
 
 ## No 13
 ### Soal
 Sedangkan, Zoro yang sangat bersemangat untuk mencari harta karun, sehingga kecepatan kapal Zoro tidak dibatasi ketika sudah mendapatkan harta yang diinginkannya
 ### Penjelasan Jawaban
+1. Di Water7, Buat file acl-bandwidth.conf di folder /etc/squid dengan isi sebagai berikut (konfigurasi sama dengan no 12): 
+
+![image](https://user-images.githubusercontent.com/74708771/141642750-3cfcc374-0c96-49fd-b5ed-36bac6f490cd.png)
+
+2. Restart service squid
+
+![image](https://user-images.githubusercontent.com/74708771/141642112-7b881870-0075-4133-9b7d-244714251d48.png)
+
+3. Testing (download file gambar dari server dengan proxy zoro dari loguetown)
+
+![image](https://user-images.githubusercontent.com/74708771/141642972-ae5b3b96-a7d8-4807-babc-1dcb4496ce94.png)
