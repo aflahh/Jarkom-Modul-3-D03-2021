@@ -283,6 +283,46 @@ Transaksi jual beli tidak dilakukan setiap hari, oleh karena itu akses internet 
 ### Soal
 Agar transaksi bisa lebih fokus berjalan, maka dilakukan redirect website agar mudah mengingat website transaksi jual beli kapal. Setiap mengakses google.com, akan diredirect menuju super.franky.yyy.com dengan website yang sama pada soal shift modul 2. Web server super.franky.yyy.com berada pada node Skypie
 ### Penjelasan Jawaban
+1. Di EniesLobby, tambahkan konfigurasi ke /etc/bind/named.conf.local seperti berikut:
+
+![image](https://user-images.githubusercontent.com/74708771/141642385-5c0e6c87-ee01-4ab9-8a2d-459bfab5f549.png)
+
+2. Buat folder baru ```mkdir /etc/bind/sunnygo``` lalu copy ```cp /etc/bind/db.local /etc/bind/sunnygo/super.franky.d03.com``` dan isi seperti berikut:
+
+![image](https://user-images.githubusercontent.com/74708771/141642427-d778f2ab-b5ea-4cae-acb5-c56b95103f6b.png)
+
+3. Restart service bind9
+
+![image](https://user-images.githubusercontent.com/74708771/141642438-7b93434c-abb0-4ce4-85c2-aedc2da7655c.png)
+
+4. Di Skypie, Lakukan ```apt-get update`` ```apt-get install apache2 php libapache2-mod-php7.0 -y``` ```apt-get install wget unzip -y```
+5. Download file yang dibutuhkan dengan ```wget https://raw.githubusercontent.com/FeinardSlim/Praktikum-Modul-2-Jarkom/main/super.franky.zip``` lalu unzip ```unzip super.franky```
+
+![image](https://user-images.githubusercontent.com/74708771/141642512-95b1a7e2-0808-4a81-b785-961a5b5f3bdb.png)
+
+6. Copy ```cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/super.franky.d03.com.conf``` lalu isi seperti berikut:
+
+![image](https://user-images.githubusercontent.com/74708771/141642521-4cd63923-0ede-47ba-844f-a584b5986338.png)
+
+7. Buat folder baru ```mkdir /var/www/super.franky.d03.com``` dan copy file yang tadi di-download ```cp -r super.franky /var/www/super.franky.d03.com```
+
+![image](https://user-images.githubusercontent.com/74708771/141642533-7dcf9356-15d4-4c62-b388-750a7d8589e9.png)
+
+8. Start website dengan ```a2ensite super.franky.d03.com```
+
+![image](https://user-images.githubusercontent.com/74708771/141642546-a17035d5-2e0e-431a-aeab-ba4b1e876470.png)
+
+9. Restart service apache2
+
+![image](https://user-images.githubusercontent.com/74708771/141642556-c1d04020-7afb-4640-852b-3c034467c19b.png)
+
+10. Di Water7, tambahkan konfigurasi ke /etc/squid/squid.conf seperti berikut:
+
+![image](https://user-images.githubusercontent.com/74708771/141642583-f21c5456-b664-47aa-8494-585de0f9e2bb.png)
+
+11. Restart service squid
+
+![image](https://user-images.githubusercontent.com/74708771/141642112-7b881870-0075-4133-9b7d-244714251d48.png)
 
 ## No 12
 ### Soal
