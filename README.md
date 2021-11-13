@@ -263,6 +263,21 @@ Agar transaksi jual beli lebih aman dan pengguna website ada dua orang, proxy di
 ### Soal
 Transaksi jual beli tidak dilakukan setiap hari, oleh karena itu akses internet dibatasi hanya dapat diakses setiap hari Senin-Kamis pukul 07.00-11.00 dan setiap hari Selasa-Jum’at pukul 17.00-03.00 keesokan harinya (sampai Sabtu pukul 03.00)
 ### Penjelasan Jawaban
+1. Di Water7, Buat file acl.conf di folder /etc/squid dengan isi sebagai berikut: 
+
+![image](https://user-images.githubusercontent.com/74708771/141639592-3c9611b3-54ff-48fa-b1f8-6f22720b0e29.png)
+
+2. Di dalam file /etc/squid/squid.conf tambahkan konfigurasi berikut:
+
+![image](https://user-images.githubusercontent.com/74708771/141640605-eff6c6b9-3f40-416c-af46-6290c77d2e0d.png)
+
+3. Restart service squid
+
+![image](https://user-images.githubusercontent.com/74708771/141642112-7b881870-0075-4133-9b7d-244714251d48.png)
+
+4. Testing (tampilan akses google.com dengan ```lynx google.com``` dari loguetown diluar jam akses)
+
+![image](https://user-images.githubusercontent.com/74708771/141642181-64789418-b2ce-447e-9485-0ed9d472ddf8.png)
 
 ## No 11
 ### Soal
