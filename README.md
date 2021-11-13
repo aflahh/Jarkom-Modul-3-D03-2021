@@ -24,12 +24,39 @@
 ### Soal
 Luffy bersama Zoro berencana membuat peta tersebut dengan kriteria EniesLobby sebagai DNS Server, Jipangu sebagai DHCP Server, Water7 sebagai Proxy Server
 ### Penjelasan Jawaban
+Pertama, membuat topologi sama seperti di gambar soal
+![image](https://user-images.githubusercontent.com/29938033/141612513-4229b86b-75ab-4c74-adde-f06bee707d68.png)
+
+Jalankan command `iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 192.193.0.0/16` di Foosha, kemudian tampilkan DNS yang digunakan Foosha dengan `cat /etc/resolv.conf`
+![image](https://user-images.githubusercontent.com/29938033/141612674-351624b4-0817-4a68-bfb9-f8492f412459.png)
+
+Isikan output command tadi ke file `/etc/resolv.conf` di EniesLobby, Jipangu, dan Water7 supaya bisa terhubung ke internet dengan command `echo nameserver 192.168.122.1`
+![image](https://user-images.githubusercontent.com/29938033/141612792-c5007e7f-b4d7-4da3-82b8-e33e46a38c99.png)
+*Contoh di EniesLobby*
+
+Setelah itu, install bind9 di EniesLobby, isc-dhcp-server di Jipangu, dan squid di Water7 dengan command `apt-get update && apt-get install [nama package] -y`
+![image](https://user-images.githubusercontent.com/29938033/141612913-71bcff69-dc8b-40da-8ff8-c26252dda7bb.png)
+*DNS di EniesLobby*
+
+![image](https://user-images.githubusercontent.com/29938033/141612961-239326f7-39e7-4b39-be52-19dd103c21ec.png)
+*DHCP di Jipangu*
+
+![image](https://user-images.githubusercontent.com/29938033/141612984-9ffec5b3-5151-43ee-afba-1091f4224dd1.png)
+*Proxy di Water7*
 
 
 ## No 2
 ### Soal
 dan Foosha sebagai DHCP Relay
 ### Penjelasan Jawaban
+Install isc-dhcp-relay di Foosha dengan command `apt-get update && apt-get install isc-dhcp-relay -y`
+![image](https://user-images.githubusercontent.com/29938033/141613242-7c9a42c8-10d1-4172-ab9f-505a18474f47.png)
+
+Saat installasi selesai, akan ada prompt untuk mengisikan config dari relaynya. Isikan `192.193.2.4` sebagai server dhcp, `eth1 eth2 eth3` untuk interface, dan kosongi untuk additional options
+![image](https://user-images.githubusercontent.com/29938033/141613293-a04e0e84-8ea1-4fc7-ad65-5d4c8db94aaa.png)
+
+Secara automatis, file `/etc/default/isc-dhcp-relay` akan dibuat dan bisa dicek dengan command cat `cat /etc/default/isc-dhcp-relay`
+![image](https://user-images.githubusercontent.com/29938033/141613484-a235c9be-76ab-46e1-90d8-aa1f6e00c67f.png)
 
 ## No 3
 ### Soal
