@@ -121,11 +121,59 @@ Maka ketika client TottoLand direstart:
 ### Soal
 4. Client mendapatkan DNS dari EniesLobby dan client dapat terhubung dengan internet melalui DNS tersebut
 ### Penjelasan Jawaban
+Buka kembali file `/etc/dhcp/dhcpd.conf` di Jipangu dan isikan baris dibawah untuk subnet switch1 dan switch3 dan restart dhcp server
+```
+option domain-name-servers 192.193.2.2;
+```
+![image](https://user-images.githubusercontent.com/29938033/141614235-8057a4a6-cf74-4759-942c-4662eb0b294b.png)
+
+Agar dapat terhubung ke internet, buka file `/etc/bind/named.conf.options` di EniesLobby dan edit seperti berikut:
+```
+forwarders {
+    192.168.122.1;
+};
+
+// dnssec-validation auto;
+allow-query{any;};
+```
+![image](https://user-images.githubusercontent.com/29938033/141614313-036030a7-fb2b-41c0-9184-7d10b5d9dec4.png)
+
+Restart dns server dengan command `service bind9 restart`
+
+Untuk memastikan bahwa sudah berfungsi, lihat isi file `/etc/resolv.conf` di salah satu client
+![image](https://user-images.githubusercontent.com/29938033/141614371-38236f4f-9824-4337-a697-1a67949b6f7a.png)
+*Karena sudah ada `nameserver 192.193.2.2`, maka sudah berhasil*
+
 
 ## No 6
 ### Soal
 Lama waktu DHCP server meminjamkan alamat IP kepada Client yang melalui Switch1 selama 6 menit sedangkan pada client yang melalui Switch3 selama 12 menit. Dengan waktu maksimal yang dialokasikan untuk peminjaman alamat IP selama 120 menit
 ### Penjelasan Jawaban
+Buka kembali file `/etc/dhcp/dhcpd.conf` di Jipangu dan tambahkan baris berikut ke subnet switch1:
+```
+default-lease-time 360;
+max-lease-time 7200;
+```
+![image](https://user-images.githubusercontent.com/29938033/141614458-750f24fd-2e1f-4242-a10c-674289d65e0a.png)
+
+
+Kemudian tambahkan juga baris berikut untuk subnet switch3:
+```
+default-lease-time 720;
+max-lease-time 7200;
+```
+![image](https://user-images.githubusercontent.com/29938033/141614466-715cc224-813f-4394-916c-d70d18106d21.png)
+
+Kemudian restart dhcp server.
+
+Maka ketika membuka salah satu client di switch1:
+![image](https://user-images.githubusercontent.com/29938033/141614515-0a3e2904-e2b9-4570-b0b7-641d5901059c.png)
+*Loguetown mendapatkan ip 192.193.1.24 dengan lease time 360 detik atau 6 menit*
+
+Dan ketika membuka salah satu client di switch2:
+![image](https://user-images.githubusercontent.com/29938033/141614537-f1f1f80b-d275-4520-b71d-6206440c6efc.png)
+*TottoLand mendapatkan ip 192.193.3.31 dengan lease time 720 detik atau 12 menit*
+
 
 ## No 7
 ### Soal
