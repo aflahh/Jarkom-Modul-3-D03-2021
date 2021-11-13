@@ -344,10 +344,9 @@ Saatnya berlayar! Luffy dan Zoro akhirnya memutuskan untuk berlayar untuk mencar
 
 ![image](https://user-images.githubusercontent.com/74708771/141642112-7b881870-0075-4133-9b7d-244714251d48.png)
 
-4. Testing (download file gambar dari server dengan proxy luffy dari loguetown)(kecepatan 10kb/s diubah menjadi sekitar 1,25 KB/s
+4. Testing (download file gambar dari server dengan proxy luffy dari loguetown)(kecepatan 10kb/s diubah menjadi sekitar 1,25 KB/s)
 
-![image](https://user-images.githubusercontent.com/74708771/141642897-a231b91d-f529-4a86-9469-7d2eacdfb76e.png)
-
+![image](https://user-images.githubusercontent.com/74708771/141643268-cacd0e8a-b956-46c1-aa2b-4fa7dcbdbb8c.png)
 
 ## No 13
 ### Soal
